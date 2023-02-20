@@ -1,0 +1,1 @@
+Contains a project with 3D objects representing various materials, as well as light sources. Each material has its own reflective surface properties
