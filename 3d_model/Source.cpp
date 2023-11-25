@@ -19,11 +19,11 @@ void processInput(GLFWwindow* window);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
-GLdouble lastX, lastY;		//Начальное положение камеры
-GLfloat deltaTime = 0.0f;	// Время, прошедшее между последним и текущим кадром
-GLfloat lastFrame = 0.0f;  	// Время вывода последнего кадра
+GLdouble lastX, lastY;		//ГЌГ Г·Г Г«ГјГ­Г®ГҐ ГЇГ®Г«Г®Г¦ГҐГ­ГЁГҐ ГЄГ Г¬ГҐГ°Г»
+GLfloat deltaTime = 0.0f;	// Г‚Г°ГҐГ¬Гї, ГЇГ°Г®ГёГҐГ¤ГёГҐГҐ Г¬ГҐГ¦Г¤Гі ГЇГ®Г±Г«ГҐГ¤Г­ГЁГ¬ ГЁ ГІГҐГЄГіГ№ГЁГ¬ ГЄГ Г¤Г°Г®Г¬
+GLfloat lastFrame = 0.0f;  	// Г‚Г°ГҐГ¬Гї ГўГ»ГўГ®Г¤Г  ГЇГ®Г±Г«ГҐГ¤Г­ГҐГЈГ® ГЄГ Г¤Г°Г 
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-bool keys[1024];					//Массив переменных логического типа, представляющий нажатые или отпущенные состояния клавиш
+bool keys[1024];					//ГЊГ Г±Г±ГЁГў ГЇГҐГ°ГҐГ¬ГҐГ­Г­Г»Гµ Г«Г®ГЈГЁГ·ГҐГ±ГЄГ®ГЈГ® ГІГЁГЇГ , ГЇГ°ГҐГ¤Г±ГІГ ГўГ«ГїГѕГ№ГЁГ© Г­Г Г¦Г ГІГ»ГҐ ГЁГ«ГЁ Г®ГІГЇГіГ№ГҐГ­Г­Г»ГҐ Г±Г®Г±ГІГ®ГїГ­ГЁГї ГЄГ«Г ГўГЁГё
 bool firstMouse = true;
 glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
 
@@ -35,17 +35,17 @@ const unsigned int SCR_HEIGHT = 800;
 int main()
 {
     std::cout << "Starting GLFW context, OpenGL 3.3" << std::endl;
-    //Инициализация GLFW
+    //Г€Г­ГЁГ¶ГЁГ Г«ГЁГ§Г Г¶ГЁГї GLFW
     glfwInit();
-    //Настройка GLFW
-    //Задается минимальная требуемая версия OpenGL. 
-    //Мажорная 
+    //ГЌГ Г±ГІГ°Г®Г©ГЄГ  GLFW
+    //Г‡Г Г¤Г ГҐГІГ±Гї Г¬ГЁГ­ГЁГ¬Г Г«ГјГ­Г Гї ГІГ°ГҐГЎГіГҐГ¬Г Гї ГўГҐГ°Г±ГЁГї OpenGL. 
+    //ГЊГ Г¦Г®Г°Г­Г Гї 
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    //Минорная
+    //ГЊГЁГ­Г®Г°Г­Г Гї
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    //Установка профайла для которого создается контекст
+    //Г“Г±ГІГ Г­Г®ГўГЄГ  ГЇГ°Г®ГґГ Г©Г«Г  Г¤Г«Гї ГЄГ®ГІГ®Г°Г®ГЈГ® Г±Г®Г§Г¤Г ГҐГІГ±Гї ГЄГ®Г­ГІГҐГЄГ±ГІ
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //Выключение возможности изменения размера окна
+    //Г‚Г»ГЄГ«ГѕГ·ГҐГ­ГЁГҐ ГўГ®Г§Г¬Г®Г¦Г­Г®Г±ГІГЁ ГЁГ§Г¬ГҐГ­ГҐГ­ГЁГї Г°Г Г§Г¬ГҐГ°Г  Г®ГЄГ­Г 
     glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
     GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "LearnOpenGL", nullptr, nullptr);
     if (window == nullptr)
@@ -56,12 +56,12 @@ int main()
     }
     glfwMakeContextCurrent(window);
 
-    //Функции обратного вызова
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //захват курсора
+    //Г”ГіГ­ГЄГ¶ГЁГЁ Г®ГЎГ°Г ГІГ­Г®ГЈГ® ГўГ»Г§Г®ГўГ 
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED); //Г§Г ГµГўГ ГІ ГЄГіГ°Г±Г®Г°Г 
     glfwSetCursorPosCallback(window, mouse_callback);
     glfwSetScrollCallback(window, scroll_callback);
 
-    //разрешить проверку глубины
+    //Г°Г Г§Г°ГҐГёГЁГІГј ГЇГ°Г®ГўГҐГ°ГЄГі ГЈГ«ГіГЎГЁГ­Г»
     glEnable(GL_DEPTH_TEST);
 
     //glewExperimental = GL_TRUE;
@@ -86,7 +86,7 @@ int main()
 
     // load models
     // -----------
-    Model ourModel("C:/Users/schol/Documents/OpenGl/models/girl/scene.gltf");
+    Model ourModel("");
 
 
     glm::vec3 pointLightPositions[] = {
@@ -186,19 +186,19 @@ GLuint create_texture(const char* filename)
 {
     GLuint texture;
     glGenTextures(1, &texture);
-    //привязка текстуры
+    //ГЇГ°ГЁГўГїГ§ГЄГ  ГІГҐГЄГ±ГІГіГ°Г»
     glBindTexture(GL_TEXTURE_2D, texture);
-    // Устанавливаем настройки фильтрации и преобразований
+    // Г“Г±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ Г­Г Г±ГІГ°Г®Г©ГЄГЁ ГґГЁГ«ГјГІГ°Г Г¶ГЁГЁ ГЁ ГЇГ°ГҐГ®ГЎГ°Г Г§Г®ГўГ Г­ГЁГ©
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    //сгенерировать данные текстуры используя предварительно загруженное изображение
+    //Г±ГЈГҐГ­ГҐГ°ГЁГ°Г®ГўГ ГІГј Г¤Г Г­Г­Г»ГҐ ГІГҐГЄГ±ГІГіГ°Г» ГЁГ±ГЇГ®Г«ГјГ§ГіГї ГЇГ°ГҐГ¤ГўГ Г°ГЁГІГҐГ«ГјГ­Г® Г§Г ГЈГ°ГіГ¦ГҐГ­Г­Г®ГҐ ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГҐ
     int width, height;
     unsigned char* image2 = stbi_load(filename, &width, &height, 0, SOIL_LOAD_RGB);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image2);
     glGenerateMipmap(GL_TEXTURE_2D);
-    //освобождение участка памяти, выделенного под загруженное изображение, и отвязка объекта текстуры
+    //Г®Г±ГўГ®ГЎГ®Г¦Г¤ГҐГ­ГЁГҐ ГіГ·Г Г±ГІГЄГ  ГЇГ Г¬ГїГІГЁ, ГўГ»Г¤ГҐГ«ГҐГ­Г­Г®ГЈГ® ГЇГ®Г¤ Г§Г ГЈГ°ГіГ¦ГҐГ­Г­Г®ГҐ ГЁГ§Г®ГЎГ°Г Г¦ГҐГ­ГЁГҐ, ГЁ Г®ГІГўГїГ§ГЄГ  Г®ГЎГєГҐГЄГІГ  ГІГҐГЄГ±ГІГіГ°Г»
     SOIL_free_image_data(image2);
     glBindTexture(GL_TEXTURE_2D, 0);
     return texture;
@@ -217,8 +217,8 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 // -------------------------------------------------------
 void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode)
 {
-    // Когда пользователь нажимает ESC, мы устанавливаем свойство WindowShouldClose в true, 
-    // и приложение после этого закроется
+    // ГЉГ®ГЈГ¤Г  ГЇГ®Г«ГјГ§Г®ГўГ ГІГҐГ«Гј Г­Г Г¦ГЁГ¬Г ГҐГІ ESC, Г¬Г» ГіГ±ГІГ Г­Г ГўГ«ГЁГўГ ГҐГ¬ Г±ГўГ®Г©Г±ГІГўГ® WindowShouldClose Гў true, 
+    // ГЁ ГЇГ°ГЁГ«Г®Г¦ГҐГ­ГЁГҐ ГЇГ®Г±Г«ГҐ ГЅГІГ®ГЈГ® Г§Г ГЄГ°Г®ГҐГІГ±Гї
     if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
         glfwSetWindowShouldClose(window, GL_TRUE);
     if (action == GLFW_PRESS)
@@ -229,7 +229,7 @@ void key_callback(GLFWwindow* window, int key, int scancode, int action, int mod
 void do_movement()
 {
     // Camera controls
-    //Всякий раз, когда мы нажимаем одну из клавиш WASD, положение камеры обновляется в соответствии с её новыми координатами. 
+    //Г‚Г±ГїГЄГЁГ© Г°Г Г§, ГЄГ®ГЈГ¤Г  Г¬Г» Г­Г Г¦ГЁГ¬Г ГҐГ¬ Г®Г¤Г­Гі ГЁГ§ ГЄГ«Г ГўГЁГё WASD, ГЇГ®Г«Г®Г¦ГҐГ­ГЁГҐ ГЄГ Г¬ГҐГ°Г» Г®ГЎГ­Г®ГўГ«ГїГҐГІГ±Гї Гў Г±Г®Г®ГІГўГҐГІГ±ГІГўГЁГЁ Г± ГҐВё Г­Г®ГўГ»Г¬ГЁ ГЄГ®Г®Г°Г¤ГЁГ­Г ГІГ Г¬ГЁ. 
     if (keys[GLFW_KEY_W])
         camera.ProcessKeyboard(FORWARD, deltaTime);
     if (keys[GLFW_KEY_S])
