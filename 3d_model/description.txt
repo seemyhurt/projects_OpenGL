@@ -1,1 +1,0 @@
-A project that allows you to upload 3d models developed for OpenGL
